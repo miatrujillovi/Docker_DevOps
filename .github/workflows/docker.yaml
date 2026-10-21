@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  construir:
+  Revisar:
     name: Lint y Contruccion
     runs-on: ubuntu-latest
 
@@ -20,5 +20,13 @@ jobs:
         uses: hadolint/hadolint-action@v3.4.0
         with:
           dockerfile: Dockerfile
-          
-  
+
+  Construir:
+    name: construir
+    needs: Revisar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Construir Imagen
+        uses: actions/checkout@v4
+        run: docker build -t etiqueta .
