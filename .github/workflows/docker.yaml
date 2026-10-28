@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Construir Imagen
-        uses: docker/build-push-actions@v6
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
