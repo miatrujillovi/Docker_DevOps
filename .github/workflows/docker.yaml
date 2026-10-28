@@ -43,4 +43,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/docker-devops-test:latest
+          tags: ghcr.io/${{github.actor}}/docker-devops-test:latest
