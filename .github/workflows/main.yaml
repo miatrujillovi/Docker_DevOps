@@ -1,0 +1,45 @@
+name: Buildear Imagen
+
+on: 
+  workflow_dispatch: #Activar workflow manualmente
+  
+
+permissions:
+  contents: read
+
+jobs:
+  Revisar:
+    name: Lint y Contruccion
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Importar Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint de la receta
+        uses: hadolint/hadolint-action@v3.4.0
+        with:
+          dockerfile: Dockerfile
+          ignore: DL3008, DL4006
+
+  Construir:
+    name: 
+    needs: Revisar
+    runs-on: ubuntu-22.04 #Linux
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Construir imagen
+        run: docker build -t minecraft-server:latest .
+
+      - name: Exportar imagen 
+        run: docker save minecraft-server:latest -o servidor.tar
+
+      - name: Subir imagen 
+        uses: actions/upload-artifact@v7
+        with:
+          name: imagen-docker
+          path: servidor.tar
+          compression-level: 0
