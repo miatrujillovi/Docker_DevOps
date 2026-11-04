@@ -40,7 +40,7 @@ jobs:
       - name: Subir imagen 
         uses: actions/upload-artifact@v7
         with:
-          name: imagen-docker
+          name: imagen-docker-linux
           path: servidor.tar
           compression-level: 0
 
@@ -53,7 +53,7 @@ jobs:
       - name: Descargar artifact
         uses: actions/download-artifact@v8
         with:
-          name: imagen-docker
+          name: imagen-docker-linux
 
       - name: Verificar imagen
         run: ls -lh servidor.tar
@@ -86,7 +86,7 @@ jobs:
       - name: Subir imagen 
         uses: actions/upload-artifact@v7
         with:
-          name: imagen-docker
+          name: imagen-docker-windows
           path: servidor.tar
           compression-level: 0
 
@@ -99,7 +99,7 @@ jobs:
       - name: Descargar artifact
         uses: actions/download-artifact@v8
         with: 
-          name: imagen-docker
+          name: imagen-docker-windows
 
       - name: Verificar imagen
         shell: pwsh
