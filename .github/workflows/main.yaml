@@ -44,27 +44,27 @@ jobs:
           path: servidor.tar
           compression-level: 0
 
-    Importar-Windows:
-      name: 
-      needs: Construir
-      runs-on: windows-latest
+  Importar-Windows:
+    name: 
+    needs: Construir
+    runs-on: windows-latest
 
-      steps:
-        - name: Descargar artifact
-          uses: actions/download-artifact@v8
-          with: 
-            name: imagen-docker
+    steps:
+      - name: Descargar artifact
+        uses: actions/download-artifact@v8
+        with: 
+          name: imagen-docker
 
-        - name: Verificar imagen
-          shell: pwsh #Puede ser PowerShell o CMD
-          run: Get-Item servidor.tar
+      - name: Verificar imagen
+        shell: pwsh #Puede ser PowerShell o CMD
+        run: Get-Item servidor.tar
         
-        - name: Cargar imagen de Docker
-          shell: pwsh 
-          run: docker load -i servidor.tar
+      - name: Cargar imagen de Docker
+        shell: pwsh 
+        run: docker load -i servidor.tar
 
-        - name: Verificar Importancion
-          shell: pwsh
-          run: |
-            docker images
-            docker inspect minecraft-server:latest
+      - name: Verificar Importancion
+        shell: pwsh
+        run: |
+          docker images
+          docker inspect minecraft-server:latest
