@@ -25,7 +25,7 @@ jobs:
   Construir-Linux:
     name: 
     needs: Revisar
-    runs-on: ubuntu-22.04 
+    runs-on: Linux
 
     steps:
       - name: Descargar repositorio
@@ -47,7 +47,7 @@ jobs:
   Importar-Linux:
     name:
     needs: Construir-Linux
-    runs-on: ubuntu-22.04
+    runs-on: Linux
 
     steps:
       - name: Descargar artifact
@@ -69,7 +69,7 @@ jobs:
   Construir-Windows:
     name:
     needs: Revisar
-    runs-on: windows-latest
+    runs-on: Windows
 
     steps:
       - name: Descargar repositorio
@@ -93,7 +93,7 @@ jobs:
   Importar-Windows:
     name: 
     needs: Construir-Windows
-    runs-on: windows-latest
+    runs-on: Windows
 
     steps:
       - name: Descargar artifact
