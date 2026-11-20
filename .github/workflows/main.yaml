@@ -26,9 +26,14 @@ jobs:
     needs: Revisar
     strategy:
       matrix:
-        os:
-          - ubuntu-latest
-          - windows-latest
+        include:
+          - os: ubuntu-latest
+            dockerfile: Dockerfile
+            artifact: imagen-docker-linux
+
+          - os: windows-latest
+            dockerfile: Dockerfile.windows
+            artifact: imagen-docker-windows
     
     runs-on: ${{ matrix.os }}
 
@@ -38,7 +43,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Construir imagen
-        run: docker build -t minecraft-server:latest .
+        run: docker build -f ${{ matrix.dockerfile }} -t minecraft-server:latest .
 
       - name: Exportar imagen 
         run: docker save minecraft-server:latest -o servidor.tar
@@ -46,7 +51,7 @@ jobs:
       - name: Subir imagen 
         uses: actions/upload-artifact@v7
         with:
-          name: imagen-docker-linux
+          name: ${{ matrix.artifact }}
           path: servidor.tar
           compression-level: 0
 
@@ -54,15 +59,13 @@ jobs:
       - name: Descargar artifact
         uses: actions/download-artifact@v8
         with:
-          name: imagen-docker-linux
+          name: ${{ matrix.artifact }}
 
-      - name: Verificar imagen
-        run: ls -lh servidor.tar
+      #- name: Verificar imagen
+      #  run: ls -lh servidor.tar
 
       - name: Cargar imagen de Docker
         run: docker load -i servidor.tar
 
       - name: Verificar Importacion
-        run: |
-          docker images
-          docker inspect minecraft-server:latest
+        run: docker inspect minecraft-server:latest
