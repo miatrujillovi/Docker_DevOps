@@ -21,7 +21,7 @@ jobs:
           dockerfile: Dockerfile
           ignore: DL3008, DL4006
 
-  Construir E Importar:
+  Construir-Importar:
     name: Construir en Windows y Ubuntu
     needs: Revisar
     strategy:
